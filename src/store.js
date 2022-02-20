@@ -1,6 +1,6 @@
 import create from "zustand";
 
-export const useTodoStore = create((set, get) => ({
+export const useStore = create((set, get) => ({
   todos: [
     {
       id: crypto.randomUUID(),
@@ -18,6 +18,7 @@ export const useTodoStore = create((set, get) => ({
       completed: false
     }
   ],
+  users: [],
   addTodo: (newTask) => set((state) => state.todos.push(newTask)),
   removeTodo: (id) =>
     set((state) => {
@@ -38,5 +39,11 @@ export const useTodoStore = create((set, get) => ({
       return {
         todos: state.todos.filter((todo) => todo.completed)
       };
-    })
+    }),
+  fetchUsers: async () => {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    const users = await response.json();
+
+    set({ users });
+  }
 }));

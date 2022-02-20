@@ -1,6 +1,7 @@
 import "./styles.css";
-import { useTodoStore } from "./store";
+import { useStore } from "./store";
 import { useState } from "react";
+import User from "./User";
 
 export default function App() {
   const {
@@ -9,7 +10,7 @@ export default function App() {
     removeTodo,
     toggleComplete,
     filterCompleted
-  } = useTodoStore((state) => state);
+  } = useStore((state) => state);
 
   const [task, setTask] = useState("");
 
@@ -22,8 +23,6 @@ export default function App() {
 
     setTask("");
   };
-
-  console.log(todos);
 
   return (
     <div className="App">
@@ -51,6 +50,9 @@ export default function App() {
                 <button onClick={() => removeTodo(todo.id)}>X</button>{" "}
               </li>
             ))}
+      </div>
+      <div>
+        <User />
       </div>
     </div>
   );
